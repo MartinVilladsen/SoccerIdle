@@ -16,6 +16,13 @@ import java.util.Map;
 public class Test {
     public static void main(String[] args) {
         Controller.tilføjKlubber();
+        Controller.tilføjRygnummer();
+        Controller.tilføjSpillere();
+
+        System.out.println(" --- ");
+        for (Spiller spiller : Controller.getAlleSpillere()) {
+            System.out.println(spiller.toString());
+        }
 
 
     }

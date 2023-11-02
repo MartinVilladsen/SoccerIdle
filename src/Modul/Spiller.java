@@ -47,6 +47,6 @@ public class Spiller {
 
     @Override
     public String toString() {
-        return navn + "";
+        return navn + " | " + land + " | " + klub.getKlubnavn() + " | " + position + " | " + alder + " | " + trøjenummer;
     }
 }

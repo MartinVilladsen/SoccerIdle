@@ -1,17 +1,13 @@
 package gui;
 
-import Controller.Controller;
 import Modul.Klub;
 import Modul.Position;
 import Modul.Spiller;
-import Storage.Storage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +24,15 @@ public class Test2 {
         try {
             final Document document = Jsoup.connect(url).get();
             int landTal = 0;
+
+            String html = "<td class=\"zentriert\"><img src=\"https://tmssl.akamaized.net/images/flagge/verysmall/75.png?lm=1520611569\" title=\"Italy\" alt=\"Italy\" class=\"flaggenrahmen\"></td>";
+
+            Document doc = Jsoup.parse(html);
+
+            Element imgElement = doc.select("img").first(); // Select the first 'img' element
+            String title = imgElement.attr("title"); // Get the 'title' attribute
+
+            System.out.println("Title: " + title);
 
             for (Element row : document.select(
                     "table.items td")) {

@@ -1,29 +1,25 @@
 package gui;
 
-import Controller.Controller;
-import Modul.Klub;
-import Modul.Position;
+import Controller.ControllerArsenal;
+import Controller.ControllerKlubber;
+import Controller.ControllerLiverpool;
+import Controller.ControllerTottenham;
 import Modul.Spiller;
-import Storage.Storage;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Test {
     public static void main(String[] args) {
-        Controller.tilføjKlubber();
-        Controller.tilføjRygnummer();
-        Controller.tilføjAlder();
-        Controller.tilføjSpillereTottenham();
+        ControllerKlubber.tilføjKlubber();
+        //
+        ControllerArsenal.tilføjArsenal();
+        ControllerTottenham.tilføjTottenham();
+        ControllerLiverpool.tilføjLiverpool();
 
-        System.out.println(" --- ");
-        for (Spiller spiller : Controller.getAlleSpillere()) {
+
+        for (Spiller spiller : ControllerKlubber.getAlleSpillere()) {
             System.out.println(spiller.toString());
         }
+
+
 
 
     }

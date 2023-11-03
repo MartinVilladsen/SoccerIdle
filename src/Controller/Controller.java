@@ -22,6 +22,7 @@ public abstract class Controller {
     static String[] spillerNavn = new String[29];
     static Position[] spillerPosition = new Position[29];
     static int[] rygNummer = new int[29];
+    static int[] alder = new int[29];
     static Map<String, Spiller> spillerMap = new HashMap<>();
 
     public static Spiller opretSpiller(String navn, String land, Klub klub, Position position, int alder,
@@ -90,9 +91,9 @@ public abstract class Controller {
             System.out.println("Hashmap test");
             System.out.println(klubMap.get(KlubInit[1]));
 
-            Spiller moSalah = Controller.opretSpiller("Mo Salah", "Egypt", klubMap.get(KlubInit[3]), Position.Angriber, 30, 11);
-            Spiller Trent = Controller.opretSpiller("Trent Alexander Arnold", "England", klubMap.get(KlubInit[3]), Position.Forsvar, 25, 66);
-            Spiller Son = Controller.opretSpiller("Son Heung-min", "Korea", klubMap.get(KlubInit[0]), Position.Angriber, 28, 7);
+            Spiller moSalah = Controller.opretSpiller("Mo Salah", "Egypt", klubMap.get("LIV"), Position.Angriber, 30, 11);
+            Spiller Trent = Controller.opretSpiller("Trent Alexander Arnold", "England", klubMap.get("LIV"), Position.Forsvar, 25, 66);
+            Spiller Son = Controller.opretSpiller("Son Heung-min", "Korea", klubMap.get("TOT"), Position.Angriber, 28, 7);
 
 
             Controller.tilføjSpillerTilKlub(moSalah, klubMap.get(KlubInit[3]));
@@ -110,7 +111,7 @@ public abstract class Controller {
         }
     }
 
-    public static void tilføjSpillere() {
+    public static void tilføjSpillereTottenham() {
         final String url = "https://www.transfermarkt.com/tottenham-hotspur/startseite/verein/148";
 
         try {
@@ -163,7 +164,7 @@ public abstract class Controller {
             }
 
             for (int i = 0; i < spillerNavn.length; i++) {
-                Spiller spiller = Controller.opretSpiller(spillerNavn[i], "England", klubber[0], spillerPosition[i], 30, rygNummer[i]);
+                Spiller spiller = Controller.opretSpiller(spillerNavn[i], "England", klubMap.get("TOT"), spillerPosition[i], (alder[i]), rygNummer[i]);
                 spillerMap.put(spillerNavn[i], spiller);
             }
         } catch (Exception ex) {
@@ -188,6 +189,34 @@ public abstract class Controller {
                     rygnummerTal++;
                 }
 
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void tilføjAlder() {
+        final String url = "https://www.transfermarkt.com/tottenham-hotspur/startseite/verein/148";
+        try {
+            final Document document = Jsoup.connect(url).get();
+            int alderTal = 0;
+
+            for (Element row : document.select(
+                    "table.items td")) {
+                if ((row.select("td.zentriert:nth-of-type(3)").text().equals(""))) {
+                    continue;
+                } else {
+                    final String alderSpiller = row.select("td.zentriert:nth-of-type(3)").text();
+                    // System.out.println(alderSpiller);
+
+                    int sidsteMellem = alderSpiller.lastIndexOf("(");
+                    if (sidsteMellem != -1) {
+                        String deresAlder = alderSpiller.substring(sidsteMellem + 1, sidsteMellem + 3);
+                        System.out.println(deresAlder);
+                        alder[alderTal] = Integer.parseInt(deresAlder);
+                        alderTal++;
+                    }
+                }
             }
         } catch (Exception ex) {
             ex.printStackTrace();

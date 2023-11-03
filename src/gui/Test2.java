@@ -8,6 +8,7 @@ import Storage.Storage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -20,12 +21,32 @@ public class Test2 {
     static Position[] spillerPosition = new Position[29];
     static Map<String, Spiller> spillerMap = new HashMap<>();
     static Klub[] klubber = new Klub[20];
+    static String[] alder = new String[29];
+    static String[] land = new String[29];
     public static void main(String[] args) {
-        String[] spillerNavn = new String[29];
-        String[] spillerPosition = new String[29];
-        // Map<String, Spiller> spillerMap = new HashMap<>();
-        tilføjRygnummer();
-        tilføjNavnOgPosition();
+        final String url = "https://www.transfermarkt.com/tottenham-hotspur/startseite/verein/148";
+        try {
+            final Document document = Jsoup.connect(url).get();
+            int landTal = 0;
+
+            for (Element row : document.select(
+                    "table.items td")) {
+                if ((row.select(".flaggenrahmen").text().equals(""))) {
+                    continue;
+                } else {
+                    final String landSpiller = row.select(".flaggenrahmen").text();
+                    // System.out.println(landSpiller);
+                    Elements images = document.select("https://tmssl.akamaized.net/images/flagge/verysmall/75.png?lm=1520611569");
+                    System.out.println(images.attr("title"));
+
+                    land[landTal] = landSpiller;
+                    landTal++;
+                }
+
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void tilføjRygnummer() {
@@ -53,64 +74,24 @@ public class Test2 {
     }
 
     public static void tilføjNavnOgPosition() {
-
         final String url = "https://www.transfermarkt.com/tottenham-hotspur/startseite/verein/148";
-
         try {
             final Document document = Jsoup.connect(url).get();
-            int spillerNavnTal = 0;
-            int spillerPositionTal = 0;
+            int rygnummerTal = 0;
 
             for (Element row : document.select(
                     "table.items td")) {
-                if (row.select("tr:nth-of-type(1)").text().equals("")) {
+                if ((row.select("td.zentriert:nth-of-type(4)").text().equals(""))) {
                     continue;
                 } else {
-                    final String navn =
-                            row.select("tr:nth-of-type(1)").text();
-                    final String position =
-                            row.select("tr:nth-of-type(2)").text();
+                    final String rygnummer = row.select("td.zentriert:nth-of-type(4)").text();
+                    System.out.println(rygnummer);
 
-                    Position playerPosition = null;
-
-                    if (position.equals("Goalkeeper")) {
-                        playerPosition = Position.Målmand;
-                    } else if (position.equals("Centre-Back")) {
-                        playerPosition = Position.Forsvar;
-                    } else if (position.equals("Left-Back")) {
-                        playerPosition = Position.Forsvar;
-                    } else if (position.equals("Right-Back")) {
-                        playerPosition = Position.Forsvar;
-                    } else if (position.equals("Defensive Midfield")) {
-                        playerPosition = Position.Midtbane;
-                    } else if (position.equals("Central Midfield")) {
-                        playerPosition = Position.Midtbane;
-                    } else if (position.equals("Left Midfield")) {
-                        playerPosition = Position.Midtbane;
-                    } else if (position.equals("Attacking Midfield")) {
-                        playerPosition = Position.Midtbane;
-                    } else if (position.equals("Left Winger")) {
-                        playerPosition = Position.Angriber;
-                    } else if (position.equals("Right Winger")) {
-                        playerPosition = Position.Angriber;
-                    } else if (position.equals("Centre-Forward")) {
-                        playerPosition = Position.Angriber;
-                    }
-
-                    System.out.println(navn + " | " + position);
-                    spillerNavn[spillerNavnTal] = navn;
-                    spillerNavnTal++;
-                    spillerPosition[spillerPositionTal] = playerPosition;
-                    spillerPositionTal++;
+                    rygNummer[rygnummerTal] = Integer.parseInt(rygnummer);
+                    rygnummerTal++;
                 }
+
             }
-
-            for (int i = 0; i < spillerNavn.length; i++) {
-                Spiller spiller = Controller.opretSpiller(spillerNavn[i], "England", klubber[0], spillerPosition[i], 30, rygNummer[0]);
-                spillerMap.put(spillerNavn[i], spiller);
-            }
-
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }

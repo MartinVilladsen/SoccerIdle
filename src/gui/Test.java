@@ -17,7 +17,8 @@ public class Test {
     public static void main(String[] args) {
         Controller.tilføjKlubber();
         Controller.tilføjRygnummer();
-        Controller.tilføjSpillere();
+        Controller.tilføjAlder();
+        Controller.tilføjSpillereTottenham();
 
         System.out.println(" --- ");
         for (Spiller spiller : Controller.getAlleSpillere()) {

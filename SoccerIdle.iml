@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="jsoup-1.16.2" level="application" />
     <orderEntry type="library" exported="" name="javafx" level="application" />
+    <orderEntry type="library" exported="" name="controlsfx-11.1.2" level="application" />
   </component>
 </module>

@@ -11,6 +11,7 @@ import org.jsoup.nodes.Element;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public abstract class ControllerKlubber {
 
@@ -79,8 +80,30 @@ public abstract class ControllerKlubber {
             ex.printStackTrace();
         }
     }
+
     public static List<Spiller> getAlleSpillere() {
         return Storage.getSpillere();
     }
 
+    public static List<String> getAlleSpillerNavne() {
+        return Storage.getSpillernavne();
+    }
+
+    public static Spiller randomSpiller(List<Spiller> list) {
+        Random random = new Random();
+        int randomSpiller = random.nextInt(list.size() + 1);
+        Spiller spiller = list.get(randomSpiller);
+        return spiller;
+    }
+
+    public static String[] navne() {
+        String[] navn = new String[29];
+        int i = 0;
+        for (Spiller s : getAlleSpillere()) {
+            navn[i] = s.getNavn();
+            i++;
+        }
+        return navn;
+    }
 }
+

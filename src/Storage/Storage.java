@@ -24,6 +24,14 @@ public abstract class Storage {
         return spillere;
     }
 
+    public static ArrayList<String> getSpillernavne() {
+        ArrayList<String> navne = new ArrayList<>();
+        for (Spiller spiller : spillere) {
+            navne.add(spiller.getNavn());
+        }
+        return navne;
+    }
+
     public static List<Klub> getKlubber() {
         return klubber;
     }

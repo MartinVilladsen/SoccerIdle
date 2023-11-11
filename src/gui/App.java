@@ -10,8 +10,9 @@ public class App {
     public static void main(String[] args) {
         // initStorage();
         ControllerKlubber.tilføjKlubber();
-        ControllerLiverpool.tilføjLiverpool();;
-        Gui2.launch(Gui2.class);
+        ControllerLiverpool.tilføjLiverpool();
+        // ControllerArsenal.tilføjArsenal();;
+        StartGame.launch(StartGame.class);
     }
 
     public static void initStorage() {

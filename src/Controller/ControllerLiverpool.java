@@ -87,7 +87,6 @@ public abstract class ControllerLiverpool {
                     continue;
                 } else {
                     final String rygnummer = row.select(".rn_nummer").text();
-                    // System.out.println(rygnummer);
 
                     rygNummer[rygnummerTal] = Integer.parseInt(rygnummer);
                     rygnummerTal++;

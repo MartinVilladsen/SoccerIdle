@@ -91,7 +91,7 @@ public abstract class ControllerKlubber {
 
     public static Spiller randomSpiller(List<Spiller> list) {
         Random random = new Random();
-        int randomSpiller = random.nextInt(list.size() + 1);
+        int randomSpiller = random.nextInt(list.size());
         Spiller spiller = list.get(randomSpiller);
         return spiller;
     }
